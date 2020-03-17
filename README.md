@@ -1,3 +1,3 @@
-# Tietokantasovelluskurssin harjoitustyö
-## Projektin todo-lista
-
+# Projektin todo-lista
+## Kaavio
+![kaavio](kaavio.png)
