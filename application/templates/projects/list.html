@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Project</th>
+    </tr>
+    {% for project in projects %}
+    <tr>
+      <td>
+	<form method="POST" action="{{ url_for('projects_update_name', project_id=project.id) }}">
+	  <input type="text" name="name" value="{{ project.name }}"/>
+	  <input type="submit" value="Update name"/>
+	</form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
