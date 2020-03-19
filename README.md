@@ -1,9 +1,13 @@
-# Kanban-taulu
+# Kanban board
 
 [![Heroku](https://heroku-badge.herokuapp.com/?app=tsoha-kanban)](https://tsoha-kanban.herokuapp.com/)
 
-## Kuvaus
-Harjoitustyön on virtuaalinen Kanban-taulu.
+## Description
+A virtual Kanban board.
 
-## Kaavio
+## Documentation
+
+### User stories
+You can find user stories [here](documentation/user_stories.txt)
+### Database graph
 ![kaavio](kaavio.png)
