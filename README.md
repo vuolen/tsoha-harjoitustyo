@@ -8,6 +8,6 @@ A virtual Kanban board.
 ## Documentation
 
 ### User stories
-You can find user stories [here](documentation/user_stories.txt)
+You can find user stories [here](documentation/user_stories.md)
 ### Database graph
 ![kaavio](kaavio.png)
