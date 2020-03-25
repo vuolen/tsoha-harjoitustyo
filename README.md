@@ -10,4 +10,4 @@ A virtual Kanban board.
 ### User stories
 You can find user stories [here](documentation/user_stories.md)
 ### Database graph
-![kaavio](kaavio.png)
+![graph](documentation/graph.png)
