@@ -19,6 +19,11 @@ def projects_create():
   
     return redirect(url_for("projects_index"))
 
+@app.route("/projects/<project_id>/")
+def projects_update_form(project_id):
+    p = Project.query.get(project_id)
+    return render_template("projects/update.html", project=p)
+
 @app.route("/projects/<project_id>/", methods=["POST"])
 def projects_update_name(project_id):
     p = Project.query.get(project_id)
@@ -26,4 +31,4 @@ def projects_update_name(project_id):
 
     db.session().commit()
 
-    return redirect(url_for("projects_index"))
+    return redirect(url_for("projects_update_form", project_id = project_id))

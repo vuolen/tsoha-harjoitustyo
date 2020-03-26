@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block body %}
+	<h2>{{ project.name }}</h2>
+	<form method="POST" action="{{ url_for('projects_update_name', project_id=project.id) }}">
+	  <input type="text" name="name" value="{{ project.name }}"/>
+	  <input type="submit" value="Update name"/>
+	</form>
+{% endblock %}

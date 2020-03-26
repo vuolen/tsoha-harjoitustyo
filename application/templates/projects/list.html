@@ -8,10 +8,10 @@
     {% for project in projects %}
     <tr>
       <td>
-	<form method="POST" action="{{ url_for('projects_update_name', project_id=project.id) }}">
-	  <input type="text" name="name" value="{{ project.name }}"/>
-	  <input type="submit" value="Update name"/>
-	</form>
+	{{ project.name }}
+      </td>
+      <td>
+	<a href="projects/{{ project.id }}">Edit project</a>
       </td>
     </tr>
     {% endfor %}
