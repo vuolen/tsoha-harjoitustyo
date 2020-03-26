@@ -10,9 +10,9 @@ class User(db.Model):
     password = db.Column(db.String(144), nullable=False)
 
     
-    def __init__(self, name, username, password):
-        self.name = name
+    def __init__(self, username, fullname, password):
         self.username = username
+        self.fullname = fullname
         self.password = password
   
     def get_id(self):
