@@ -3,7 +3,7 @@ from flask_login import login_required
 
 from application import app, db
 from application.projects.models import Project
-from application.projects.forms import ProjectForm
+from application.projects.forms import CreateProjectForm, UpdateProjectForm
 
 @app.route("/projects", methods=["GET"])
 def projects_index():
@@ -12,12 +12,12 @@ def projects_index():
 @app.route("/projects/new/")
 @login_required
 def projects_form():
-    return render_template("projects/new.html", form = ProjectForm())
+    return render_template("projects/new.html", form = CreateProjectForm())
 
 @app.route("/projects/", methods=["POST"])
 @login_required
 def projects_create():
-    form = ProjectForm(request.form)
+    form = CreateProjectForm(request.form)
 
     if not form.validate():
         return render_template("projects/new.html", form = form)
@@ -31,13 +31,19 @@ def projects_create():
 @login_required
 def projects_update_form(project_id):
     p = Project.query.get(project_id)
-    return render_template("projects/update.html", project=p)
+    return render_template("projects/update.html", project=p, form = UpdateProjectForm())
 
 @app.route("/projects/<project_id>/", methods=["POST"])
 @login_required
 def projects_update_name(project_id):
+    form = UpdateProjectForm(request.form)
+
     p = Project.query.get(project_id)
-    p.name = request.form.get("name")
+    
+    if not form.validate():
+        return render_template("/projects/update.html", project=p, form = form)
+
+    p.name = form.name.data
 
     db.session().commit()
 
