@@ -6,14 +6,24 @@
   </head>
 
   <body>
-    <ul>
-	<li><a href="{{ url_for('projects_index') }}">List projects</a></li>
-	<li><a href="{{ url_for('projects_form') }}">Add a project</a></li>
-    </ul>
-    {% block body %}
+      {% if current_user.is_authenticated %}
       <p>
-        Content.
+	Kirjautunut nimellä {{ current_user.username }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
+</p>
       </p>
-    {% endblock %}
+      {% else %}
+      <a href="{{ url_for('auth_login') }}">Kirjaudu</a>
+      {% endif %}
+      
+      <ul>
+	<li><a href="{{ url_for('projects_index') }}">List tasks</a></li>
+	<li><a href="{{ url_for('projects_form') }}">Add a task</a></li>
+      </ul>
+      
+      {% block body %}
+      <p>
+	Content.
+      </p>
+      {% endblock %}
   </body>
 </html>
