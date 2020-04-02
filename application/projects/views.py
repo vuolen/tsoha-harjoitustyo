@@ -7,8 +7,11 @@ from application.projects.forms import CreateProjectForm, UpdateProjectForm
 from application.permissions.models import Permission
 
 @app.route("/projects", methods=["GET"])
+@login_required
 def projects_index():
-    return render_template("projects/list.html", projects = Project.query.all())
+    projects = db.engine.execute("SELECT * FROM project as P WHERE EXISTS (SELECT * FROM permission WHERE user_id=? AND project_id=P.id)", [current_user.get_id()])
+    print(projects)
+    return render_template("projects/list.html", projects = projects)
 
 @app.route("/projects/new/")
 @login_required
