@@ -9,9 +9,7 @@ from application.permissions.models import Permission
 @app.route("/projects", methods=["GET"])
 @login_required
 def projects_index():
-    projects = db.engine.execute("SELECT * FROM project as P WHERE EXISTS (SELECT * FROM permission WHERE user_id=? AND project_id=P.id)", [current_user.get_id()])
-    print(projects)
-    return render_template("projects/list.html", projects = projects)
+    return render_template("projects/list.html", projects = current_user.get_projects())
 
 @app.route("/projects/new/")
 @login_required
@@ -30,7 +28,6 @@ def projects_create():
     db.session().add(p)
     db.session().commit()
 
-    print(p.id)
     perm = Permission(p.id, current_user.get_id(), True)
     db.session().add(perm)
     db.session().commit()
