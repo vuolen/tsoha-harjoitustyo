@@ -19,6 +19,10 @@ from application.projects import models, views
 
 from application.auth import models, views
 
+from application.todos import models
+
+from application.stages import models
+
 # kirjautuminen
 from application.auth.models import User
 from os import urandom
