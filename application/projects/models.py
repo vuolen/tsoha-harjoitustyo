@@ -1,7 +1,7 @@
 from application import db
+from application.models import Base
 
-class Project(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class Project(Base):
     name = db.Column(db.String(144), nullable=False)
 
     def __init__(self, name):
