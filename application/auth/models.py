@@ -1,6 +1,8 @@
 from application import db
 from application.models import Base
 
+from sqlalchemy.sql import text
+
 class User(Base):
 
     __tablename__ = "account"
@@ -29,4 +31,7 @@ class User(Base):
         return True
 
     def get_projects(self):
-        return db.engine.execute("SELECT * FROM project as P WHERE EXISTS (SELECT * FROM permission WHERE user_id=? AND project_id=P.id)", [self.get_id()])
+        stmt = text("SELECT * FROM project as P WHERE EXISTS (SELECT * FROM permission WHERE user_id=:userid AND project_id=P.id)").params(userid=self.get_id())
+        res = db.engine.execute(stmt)
+        
+        return res
