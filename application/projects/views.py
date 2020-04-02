@@ -1,9 +1,10 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from application import app, db
 from application.projects.models import Project
 from application.projects.forms import CreateProjectForm, UpdateProjectForm
+from application.permissions.models import Permission
 
 @app.route("/projects", methods=["GET"])
 def projects_index():
@@ -25,6 +26,12 @@ def projects_create():
     p = Project(form.name.data)
     db.session().add(p)
     db.session().commit()
+
+    print(p.id)
+    perm = Permission(p.id, current_user.get_id(), True)
+    db.session().add(perm)
+    db.session().commit()
+    
     return redirect(url_for("projects_index"))
 
 @app.route("/projects/<project_id>/")
