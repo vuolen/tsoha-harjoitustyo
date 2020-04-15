@@ -34,7 +34,7 @@ def projects_create():
     
     return redirect(url_for("projects_index"))
 
-@app.route("/projects/<project_id>/update")
+@app.route("/projects/<project_id>/update", methods=["GET"])
 @login_required
 def projects_update_form(project_id):
     p = Project.query.get(project_id)
@@ -55,3 +55,18 @@ def projects_update(project_id):
     db.session().commit()
 
     return redirect(url_for("projects_update_form", project_id = project_id))
+
+@app.route("/projects/<project_id>/delete", methods=["GET"])
+@login_required
+def projects_delete_form(project_id):
+    p = Project.query.get(project_id)
+    return render_template("/projects/delete.html", project=p)
+
+@app.route("/projects/<project_id>/delete", methods=["POST"])
+@login_required
+def projects_delete(project_id):
+    p = Project.query.get(project_id)
+    if p is not None:
+        db.session().delete(p)
+        db.session().commit()
+    return redirect(url_for("projects_index"))
