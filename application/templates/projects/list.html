@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
+  <table cellpadding="5">
     <tr>
       <th>Project</th>
     </tr>
@@ -11,7 +11,10 @@
 	{{ project.name }}
       </td>
       <td>
-	<a href="{{ url_for('projects_update_form', project_id = project.id) }}">Edit project</a>
+	<a href="{{ url_for('projects_update_form', project_id = project.id) }}">Edit</a>
+      </td>
+      <td>
+	<a href="{{ url_for('projects_delete_form', project_id = project.id) }}">Delete</a>
       </td>
     </tr>
     {% endfor %}
