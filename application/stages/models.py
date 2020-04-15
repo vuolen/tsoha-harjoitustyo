@@ -5,3 +5,5 @@ class Stage(Base):
     project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
     index = db.Column(db.Integer, unique=True, nullable=False)
     name = db.Column(db.String, nullable=False)
+
+    todos = db.relationship("Todo", backref="stage", lazy=True)
