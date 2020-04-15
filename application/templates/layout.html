@@ -27,7 +27,11 @@
 	    {% if current_user.is_authenticated %}
 	    <a href="{{ url_for('auth_logout') }}">Hello {{ current_user.name }} -- Logout</a>
 	    {% else %}
-	    <a href="{{ url_for('auth_login') }}">Login</a>
+	    <span>
+		<a href="{{ url_for('auth_login') }}">Login</a>
+		<span class="navbar-text"> or </span>
+		<a href="{{ url_for('auth_register') }}">register</a>
+	    </span>
 	    {% endif %}
           </div>
 	</div>
