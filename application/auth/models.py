@@ -11,7 +11,7 @@ class User(Base):
     fullname = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
 
-    projects = db.relationship("Permission", backref="user")
+    permissions = db.relationship("Permission", backref="user")
     
     def __init__(self, username, fullname, password):
         self.username = username
