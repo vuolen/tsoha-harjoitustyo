@@ -11,7 +11,7 @@
 	{{ project.name }}
       </td>
       <td>
-	<a href="projects/{{ project.id }}">Edit project</a>
+	<a href="{{ url_for('projects_update_form', project_id = project.id) }}">Edit project</a>
       </td>
     </tr>
     {% endfor %}

@@ -11,18 +11,18 @@ from application.permissions.models import Permission
 def projects_index():
     return render_template("projects/list.html", projects = current_user.get_projects())
 
-@app.route("/projects/new/")
+@app.route("/projects/create/")
 @login_required
-def projects_form():
-    return render_template("projects/new.html", form = CreateProjectForm())
+def projects_create_form():
+    return render_template("projects/create.html", form = CreateProjectForm())
 
-@app.route("/projects/", methods=["POST"])
+@app.route("/projects/create/", methods=["POST"])
 @login_required
 def projects_create():
     form = CreateProjectForm(request.form)
 
     if not form.validate():
-        return render_template("projects/new.html", form = form)
+        return render_template("projects/create.html", form = form)
     
     p = Project(form.name.data)
     db.session().add(p)
@@ -34,15 +34,15 @@ def projects_create():
     
     return redirect(url_for("projects_index"))
 
-@app.route("/projects/<project_id>/")
+@app.route("/projects/<project_id>/update")
 @login_required
 def projects_update_form(project_id):
     p = Project.query.get(project_id)
     return render_template("projects/update.html", project=p, form = UpdateProjectForm())
 
-@app.route("/projects/<project_id>/", methods=["POST"])
+@app.route("/projects/<project_id>/update", methods=["POST"])
 @login_required
-def projects_update_name(project_id):
+def projects_update(project_id):
     form = UpdateProjectForm(request.form)
 
     p = Project.query.get(project_id)

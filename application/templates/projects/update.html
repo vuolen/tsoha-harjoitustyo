@@ -3,7 +3,7 @@
 {% block body %}
 
 <h2>{{ project.name }}</h2>
-<form method="POST" action="{{ url_for('projects_update_name', project_id=project.id) }}">
+<form method="POST" action="{{ url_for('projects_update', project_id=project.id) }}">
   <table>
     <tr>
       <td>
