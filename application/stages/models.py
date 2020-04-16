@@ -1,14 +1,16 @@
-from sqlalchemy import text
+from sqlalchemy import text, UniqueConstraint
 
 from application import db
 from application.models import Base
 
 class Stage(Base):
     project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
-    index = db.Column(db.Integer, unique=True, nullable=False)
+    index = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String, nullable=False)
 
     todos = db.relationship("Todo", backref="stage", lazy=True)
+
+    __table_args__ = (UniqueConstraint("project_id", "index", name="project_index_uc"),)
 
     @classmethod
     def get_first_stage(self, project_id):
