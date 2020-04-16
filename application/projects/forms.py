@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators
+from wtforms import FieldList, StringField, validators
 
 class CreateProjectForm(FlaskForm):
     name = StringField("Project name", [validators.Length(min=1)])

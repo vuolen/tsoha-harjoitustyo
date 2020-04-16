@@ -21,7 +21,7 @@ from application.auth import models, views
 
 from application.todos import models
 
-from application.stages import models
+from application.stages import models, views
 
 # kirjautuminen
 from application.auth.models import User

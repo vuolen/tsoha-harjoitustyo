@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <h1>{{ project.name }} stages</h1>
+  <table>
+    {% for stage in project.stages %}
+    <tr>
+      <td>
+	{{ stage.name }}
+      </td>
+      <td>
+	<a href="{{ url_for('stages_delete', project_id=project.id, index = stage.index) }}">
+	  Delete
+	</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <form method="POST" action="{{ url_for('stages_create', project_id=project.id) }}">
+    <table>
+      <tr>
+	<td>
+	  {{ form.name.label }}
+	</td>
+	<td>
+	  {{ form.name }}
+	</td>
+	<td>
+	  <ul>
+	    {% for error in form.name.errors %}
+	    <li>{{ error }}</li>
+	    {% endfor %}
+	  </ul>
+	</td>
+      </tr>
+      <tr>
+	<td colspan="3">
+	  <input type="submit" value="Add stage"/>
+	</td>
+      </tr>
+    </table>
+  </form>
+{% endblock %}

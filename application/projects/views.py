@@ -46,10 +46,12 @@ def projects_update(project_id):
     form = UpdateProjectForm(request.form)
 
     p = Project.query.get(project_id)
+
+    print(form.validate())
     
     if not form.validate():
         return render_template("/projects/update.html", project=p, form = form)
-
+    
     p.name = form.name.data
 
     db.session().commit()
