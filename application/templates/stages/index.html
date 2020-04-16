@@ -2,6 +2,7 @@
 
 {% block body %}
   <h1>{{ project.name }} stages</h1>
+  <p>
   <table>
     {% for stage in project.stages %}
     <tr>
@@ -16,12 +17,11 @@
     </tr>
     {% endfor %}
   </table>
+  </p>
+  <p>
   <form method="POST" action="{{ url_for('stages_create', project_id=project.id) }}">
     <table>
       <tr>
-	<td>
-	  {{ form.name.label }}
-	</td>
 	<td>
 	  {{ form.name }}
 	</td>
@@ -40,4 +40,5 @@
       </tr>
     </table>
   </form>
+  </p>
 {% endblock %}
