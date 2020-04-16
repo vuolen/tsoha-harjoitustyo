@@ -5,6 +5,13 @@
 ## Description
 A virtual Kanban board.
 
+### Small guide
+1. Register an account or log in
+2. Create a new project if you haven't already
+3. Go to List projects -> Edit -> Edit stages, and add stages
+4. Go to List projects -> Click on your project and add todos to the first stage
+5. When a todo is ready, advance it to the next stage
+
 ## Documentation
 
 ### User stories
