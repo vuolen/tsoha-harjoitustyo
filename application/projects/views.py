@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
-from application import app, db
+from application import app, db, admin_required
 from application.projects.models import Project
 from application.projects.forms import CreateProjectForm, UpdateProjectForm
 from application.permissions.models import Permission
@@ -36,6 +36,7 @@ def projects_create():
 
 @app.route("/projects/<project_id>/update", methods=["GET"])
 @login_required
+@admin_required
 def projects_update_form(project_id):
     p = Project.query.get(project_id)
     return render_template("projects/update.html", project=p, form = UpdateProjectForm())
@@ -60,12 +61,14 @@ def projects_update(project_id):
 
 @app.route("/projects/<project_id>/delete", methods=["GET"])
 @login_required
+@admin_required
 def projects_delete_form(project_id):
     p = Project.query.get(project_id)
     return render_template("/projects/delete.html", project=p)
 
 @app.route("/projects/<project_id>/delete", methods=["POST"])
 @login_required
+@admin_required
 def projects_delete(project_id):
     p = Project.query.get(project_id)
     if p is not None:

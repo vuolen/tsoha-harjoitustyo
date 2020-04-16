@@ -35,3 +35,10 @@ class User(Base):
         res = db.engine.execute(stmt)
         
         return res
+
+    def is_admin_on_project(self, project_id):
+        for permission in self.permissions:
+            print(permission.project_id == project_id)
+            if permission.admin and permission.project_id == project_id:
+                return True
+        return False

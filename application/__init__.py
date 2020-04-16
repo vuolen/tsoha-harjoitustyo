@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 from flask_sqlalchemy import SQLAlchemy
@@ -13,6 +13,28 @@ else:
     
 db = SQLAlchemy(app)
 
+# kirjautuminen
+from os import urandom
+app.config["SECRET_KEY"] = urandom(32)
+
+from flask_login import LoginManager, current_user
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+login_manager.login_view = "auth_login"
+login_manager.login_message = "Please login to use this functionality."
+
+from functools import wraps
+
+def admin_required(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not current_user.is_admin_on_project(int(kwargs["project_id"])):
+            return render_template("admin_required.html")
+        return func(*args, **kwargs)
+    return wrapper
+
+
 from application import views
 
 from application.projects import models, views
@@ -25,17 +47,7 @@ from application.stages import models, views
 
 from application.todos import models, views
 
-# kirjautuminen
 from application.auth.models import User
-from os import urandom
-app.config["SECRET_KEY"] = urandom(32)
-
-from flask_login import LoginManager
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-login_manager.login_view = "auth_login"
-login_manager.login_message = "Please login to use this functionality."
 
 @login_manager.user_loader
 def load_user(user_id):
