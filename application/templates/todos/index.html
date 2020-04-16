@@ -2,13 +2,50 @@
 
 {% block body %}
   <h1>{{ project.name }} todos</h1>
-  <table>
-    <tr>
+  <p>
     {% for stage in project.stages %}
-      <th>
+    <div>
 	{{ stage.name }}
-      </th>
+        <ol>
+	  {% for todo in stage.todos %}
+          <li>
+	    {{ todo.text }}
+	    <a href="{{ url_for('todos_advance', project_id=project.id, todo_id = todo.id) }}">Advance</a>
+	  </li>
+	  {% endfor %}
+        </ol>
+    </div>
     {% endfor %}
-    </tr>
-  </table>
+  </p>
+  <p>
+  {% if project.stages|length > 0 %}
+  <form method="POST" action="{{ url_for('todos_create', project_id=project.id) }}">
+    <table>
+      <tr>
+	<td>
+	  {{ form.text }}
+	</td>
+	<td>
+	  <ul>
+	    {% for error in form.text.errors %}
+	    <li>{{ error }}</li>
+	    {% endfor %}
+	  </ul>
+	</td>
+      </tr>
+      <tr>
+	<td colspan="3">
+	  <input type="submit" value="Add todo"/>
+	</td>
+      </tr>
+    </table>
+  </form>
+  {% else %}
+  The project requires at least one stage before you can add todos.
+  {% endif %}
+  </p>
+  <p>
+    <h3>What to work on?</h3>
+    The stage <b>{{ most_populated_stage }}</b> has the most todos. You should start there.
+  </p>
 {% endblock %}

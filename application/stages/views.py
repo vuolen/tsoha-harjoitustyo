@@ -23,7 +23,7 @@ def stages_create(project_id):
     
     s = Stage()
     s.project_id = project_id
-    s.index = Stage.get_next_index(project_id)
+    s.index = Stage.get_new_index(project_id)
     s.name = form.name.data
     db.session().add(s)
     db.session().commit()
