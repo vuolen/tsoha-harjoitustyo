@@ -44,8 +44,10 @@
   The project requires at least one stage before you can add todos.
   {% endif %}
   </p>
+  {% if most_populated_stage is not none %}
   <p>
     <h3>What to work on?</h3>
     The stage <b>{{ most_populated_stage }}</b> has the most todos. You should start there.
   </p>
+  {% endif %}
 {% endblock %}

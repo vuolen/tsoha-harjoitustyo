@@ -38,5 +38,8 @@ class Stage(Base):
                     " ORDER BY COUNT(*) DESC")
 
         res = db.engine.execute(stmt)
+        most_populated_stage = res.first()
+        if most_populated_stage is None:
+            return None
 
-        return res.first()[0]
+        return most_populated_stage[0]
