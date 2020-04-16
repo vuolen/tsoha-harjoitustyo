@@ -17,11 +17,13 @@ from application import views
 
 from application.projects import models, views
 
+from application.permissions import models
+
 from application.auth import models, views
 
-from application.todos import models
-
 from application.stages import models, views
+
+from application.todos import models, views
 
 # kirjautuminen
 from application.auth.models import User

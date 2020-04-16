@@ -8,7 +8,7 @@
     {% for project in projects %}
     <tr>
       <td>
-	{{ project.name }}
+	<a href="{{ url_for('todos_index', project_id = project.id) }}">{{ project.name }}</a>
       </td>
       <td>
 	<a href="{{ url_for('projects_update_form', project_id = project.id) }}">Edit</a>

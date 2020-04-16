@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <h1>{{ project.name }} todos</h1>
+  <table>
+    <tr>
+    {% for stage in project.stages %}
+      <th>
+	{{ stage.name }}
+      </th>
+    {% endfor %}
+    </tr>
+  </table>
+{% endblock %}
