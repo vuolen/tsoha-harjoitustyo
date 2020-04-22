@@ -6,14 +6,14 @@
     {% for stage in project.stages %}
     <div>
 	{{ stage.name }}
-        <ol>
+        <ul>
 	  {% for todo in stage.todos %}
           <li>
 	    {{ todo.text }}
 	    <a href="{{ url_for('todos_advance', project_id=project.id, todo_id = todo.id) }}">Advance</a>
 	  </li>
 	  {% endfor %}
-        </ol>
+        </ul>
     </div>
     {% endfor %}
   </p>
