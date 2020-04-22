@@ -11,6 +11,7 @@
           <li>
 	    {{ todo.text }}
 	    <a href="{{ url_for('todos_advance', project_id=project.id, todo_id = todo.id) }}">Advance</a>
+	    <a href="{{ url_for('todos_delete', project_id=project.id, todo_id = todo.id) }}">Delete</a>
 	  </li>
 	  {% endfor %}
         </ul>

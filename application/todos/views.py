@@ -32,13 +32,23 @@ def todos_create(project_id):
     
     return redirect(url_for("todos_index", project_id = project_id))
 
-@app.route("/projects/<project_id>/todos/<todo_id>", methods=["GET"])
+@app.route("/projects/<project_id>/todos/<todo_id>/advance", methods=["GET"])
 @login_required
 def todos_advance(project_id, todo_id):
     t = Todo.query.get(todo_id)
     next_stage_id = Stage.get_next_stage_id(project_id, t.stage_id)
     if next_stage_id is not None:
         t.stage_id = next_stage_id
+        db.session().commit()
+    
+    return redirect(url_for("todos_index", project_id = project_id))
+
+@app.route("/projects/<project_id>/todos/<todo_id>/delete", methods=["GET"])
+@login_required
+def todos_delete(project_id, todo_id):
+    t = Todo.query.get(todo_id)
+    if t.stage.project_id == int(project_id):
+        db.session().delete(t)
         db.session().commit()
     
     return redirect(url_for("todos_index", project_id = project_id))
