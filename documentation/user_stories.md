@@ -16,7 +16,7 @@ As a project manager, I can modify a stage in my project.
 
 As a project manager, I can delete a stage in my project. &check;
 
-As a project manager, I can do anything a normal user can.
+As a project manager, I can do anything a normal user can. &check;
 
 As a normal user, I can see all the projects I have been added to. &check;
 
@@ -26,4 +26,4 @@ As a normal user, I can add tasks to a project I have been added to. &check;
 
 As a normal user, I can advance a task to the next stage in a project I have been added to. &check;
 
-As a normal user, I can delete a task from a project I have been added to.
+As a normal user, I can delete a task from a project I have been added to. &check;
