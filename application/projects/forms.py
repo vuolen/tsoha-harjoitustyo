@@ -12,3 +12,7 @@ class UpdateProjectForm(FlaskForm):
 
     class Meta:
         csrf = False
+
+    def __init__(self, *args, **kw):
+        kw["prefix"] = "update_project"
+        super().__init__(*args, **kw)

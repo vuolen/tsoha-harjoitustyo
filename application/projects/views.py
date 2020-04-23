@@ -53,7 +53,9 @@ def projects_update(project_id):
     p = Project.query.get(project_id)
     
     if not form.validate():
-        return render_template("/projects/update.html", project=p, project_form = form)
+        return render_template("/projects/update.html", project=p,
+                               project_form = form,
+                               stage_form = CreateStageForm())
     
     p.name = form.name.data
 

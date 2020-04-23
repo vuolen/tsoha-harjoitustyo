@@ -6,3 +6,7 @@ class CreateStageForm(FlaskForm):
 
     class Meta:
         csrf = False
+
+    def __init__(self, *args, **kw):
+        kw["prefix"] = "create_stage"
+        super().__init__(*args, **kw)
