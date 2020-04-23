@@ -1,29 +1,30 @@
-As a project manager, I can create a board for my project. &check;
+- As a project manager, I can create a board for my project. &check;
+  - `INSERT INTO project (date_created, date_modified, name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, project_name)`
+- As a project manager, I can delete my project board. &check;
+  - `DELETE FROM project WHERE project.id = project_id`
+- As a project manager, I can add other users to my project.
+- As a project manager, I can remove other users from my project.
 
-As a project manager, I can delete my project board. &check;
+- As a project manager, I can update my project's name. &check;
+  - `UPDATE project SET date_modified=CURRENT_TIMESTAMP, name=new_name WHERE project.id = project_id`
+- As a project manager, I can create a stage for my project's todos. &check;
+  - `INSERT INTO stage (date_created, date_modified, project_id, index, name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, project_id, new_stage_index, new_stage_name)`
+- As a project manager, I can rearrange my project's stages.
 
-As a project manager, I can add other users to my project.
+- As a project manager, I can modify a stage in my project.
 
-As a project manager, I can remove other users from my project.
+- As a project manager, I can delete a stage in my project. &check;
+  - `DELETE FROM stage WHERE stage.id = stage_id`
+- As a project manager, I can do anything a normal user can. &check;
 
-As a project manager, I can update my project's name. &check;
-
-As a project manager, I can create a stage for my project's todos. &check;
-
-As a project manager, I can rearrange my project's stages.
-
-As a project manager, I can modify a stage in my project.
-
-As a project manager, I can delete a stage in my project. &check;
-
-As a project manager, I can do anything a normal user can. &check;
-
-As a normal user, I can see all the projects I have been added to. &check;
-
-As a normal user, I can see all the tasks in their corresponding stages in a project I have been added to. &check;
-
-As a normal user, I can add tasks to a project I have been added to. &check;
-
-As a normal user, I can advance a task to the next stage in a project I have been added to. &check;
-
-As a normal user, I can delete a task from a project I have been added to. &check;
+- As a normal user, I can see all the projects I have been added to. &check;
+  - `SELECT * FROM project as P WHERE EXISTS (SELECT * FROM permission WHERE user_id=user_id AND project_id=project_id)`
+- As a normal user, I can see all the tasks in their corresponding stages in a project I have been added to. &check;
+  - `SELECT * FROM stage WHERE project_id = project_id`
+  - `SELECT * FROM todo WHERE stage_id = stage_id`
+- As a normal user, I can add tasks to a project I have been added to. &check;
+  - `INSERT INTO todo (date_created, date_modified, stage_id, text) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, first_stage_id, todo_text)`
+- As a normal user, I can advance a task to the next stage in a project I have been added to. &check;
+  - `UPDATE todo SET date_modified=CURRENT_TIMESTAMP, stage_id=next_stage_id WHERE todo.id = todo_id`
+- As a normal user, I can delete a task from a project I have been added to. &check;
+  - `DELETE FROM todo WHERE todo.id = todo_id`
