@@ -26,13 +26,15 @@ login_manager.login_message = "Please login to use this functionality."
 
 from functools import wraps
 
-def admin_required(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        if not current_user.is_admin_on_project(int(kwargs["project_id"])):
-            return render_template("admin_required.html")
-        return func(*args, **kwargs)
-    return wrapper
+def permission_required(admin = False):
+    def callable(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):      
+            if not current_user.has_permission_to_project(int(kwargs['project_id']), admin):
+                return render_template("access_denied.html")
+            return func(*args, **kwargs)
+        return wrapper
+    return callable
 
 
 from application import views

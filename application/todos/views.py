@@ -1,13 +1,14 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required
 
-from application import app, db
+from application import app, db, permission_required
 from application.todos.models import Todo
 from application.projects.models import Project
 from application.stages.models import Stage
 from application.todos.forms import CreateTodoForm
 
 @app.route("/projects/<project_id>/todos", methods=["GET"])
+@permission_required()
 @login_required
 def todos_index(project_id):
     p = Project.query.get(project_id)
@@ -17,6 +18,7 @@ def todos_index(project_id):
 
 
 @app.route("/projects/<project_id>/todos", methods=["POST"])
+@permission_required()
 @login_required
 def todos_create(project_id):
     form = CreateTodoForm(request.form)
@@ -33,6 +35,7 @@ def todos_create(project_id):
     return redirect(url_for("todos_index", project_id = project_id))
 
 @app.route("/projects/<project_id>/todos/<todo_id>/advance", methods=["GET"])
+@permission_required()
 @login_required
 def todos_advance(project_id, todo_id):
     t = Todo.query.get(todo_id)
@@ -44,6 +47,7 @@ def todos_advance(project_id, todo_id):
     return redirect(url_for("todos_index", project_id = project_id))
 
 @app.route("/projects/<project_id>/todos/<todo_id>/delete", methods=["GET"])
+@permission_required()
 @login_required
 def todos_delete(project_id, todo_id):
     t = Todo.query.get(todo_id)

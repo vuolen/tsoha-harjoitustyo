@@ -36,9 +36,10 @@ class User(Base):
         
         return res
 
-    def is_admin_on_project(self, project_id):
+    def has_permission_to_project(self, project_id, admin):
         for permission in self.permissions:
-            print(permission.project_id == project_id)
-            if permission.admin and permission.project_id == project_id:
+            if admin and not permission.admin:
+                continue
+            if permission.project_id == project_id:
                 return True
         return False
