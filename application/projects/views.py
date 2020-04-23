@@ -5,6 +5,7 @@ from application import app, db, permission_required
 from application.projects.models import Project
 from application.projects.forms import CreateProjectForm, UpdateProjectForm
 from application.permissions.models import Permission
+from application.stages.forms import CreateStageForm
 
 @app.route("/projects", methods=["GET"])
 @login_required
@@ -39,7 +40,9 @@ def projects_create():
 @permission_required(admin=True)
 def projects_update_form(project_id):
     p = Project.query.get(project_id)
-    return render_template("projects/update.html", project=p, form = UpdateProjectForm())
+    return render_template("projects/update.html", project=p,
+                           project_form = UpdateProjectForm(),
+                           stage_form = CreateStageForm())
 
 @app.route("/projects/<project_id>/update", methods=["POST"])
 @login_required
@@ -48,11 +51,9 @@ def projects_update(project_id):
     form = UpdateProjectForm(request.form)
 
     p = Project.query.get(project_id)
-
-    print(form.validate())
     
     if not form.validate():
-        return render_template("/projects/update.html", project=p, form = form)
+        return render_template("/projects/update.html", project=p, project_form = form)
     
     p.name = form.name.data
 

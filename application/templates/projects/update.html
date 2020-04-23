@@ -2,20 +2,20 @@
 
 {% block body %}
 
+<h1>{{ project.name }}</h1>
 <p>
-  <h1>{{ project.name }}</h1>
   <form method="POST" action="{{ url_for('projects_update', project_id=project.id) }}">
     <table>
       <tr>
 	<td>
-	  {{ form.name.label }}
+	  {{ project_form.name.label }}
 	</td>
 	<td>
-	  {{ form.name }}
+	  {{ project_form.name }}
 	</td>
 	<td>
 	  <ul>
-	    {% for error in form.name.errors %}
+	    {% for error in project_form.name.errors %}
 	    <li>{{ error }}</li>
 	    {% endfor %}
 	  </ul>
@@ -28,6 +28,44 @@
       </tr>
     </table>
   </form>
-  <a href="{{ url_for('stages_index', project_id=project.id) }}">Edit stages</a>
 </p>
+<h2>Stages</h2>
+<p>
+  <table>
+    {% for stage in project.stages %}
+    <tr>
+      <td>
+	{{ stage.name }}
+      </td>
+      <td>
+	<a href="{{ url_for('stages_delete', project_id=project.id, index = stage.index) }}">
+	  Delete
+	</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  </p>
+<p>
+  <form method="POST" action="{{ url_for('stages_create', project_id=project.id) }}">
+    <table>
+      <tr>
+	<td>
+	  {{ stage_form.name }}
+	</td>
+	<td>
+	  <ul>
+	    {% for error in stage_form.name.errors %}
+	    <li>{{ error }}</li>
+	    {% endfor %}
+	  </ul>
+	</td>
+      </tr>
+      <tr>
+	<td colspan="3">
+	  <input type="submit" value="Add stage"/>
+	</td>
+      </tr>
+    </table>
+  </form>
 {% endblock %}
