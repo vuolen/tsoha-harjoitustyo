@@ -29,6 +29,8 @@ class Stage(Base):
     def get_next_stage_id(self, project_id, stage_id):
         s = Stage.query.get(stage_id)
         next_stage = Stage.query.filter_by(project_id = project_id).filter(Stage.index > s.index).first()
+        if next_stage is None:
+            return None
         return next_stage.id
 
     @classmethod
