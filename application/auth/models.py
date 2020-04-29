@@ -7,7 +7,7 @@ class User(Base):
 
     __tablename__ = "account"
 
-    username = db.Column(db.String(144), nullable=False)
+    username = db.Column(db.String(144), nullable=False, unique=True)
     fullname = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
 
@@ -43,3 +43,7 @@ class User(Base):
             if permission.project_id == project_id:
                 return True
         return False
+
+    @classmethod
+    def username_exists(self, name):
+        return User.query.filter_by(username=name).scalar() is not None
