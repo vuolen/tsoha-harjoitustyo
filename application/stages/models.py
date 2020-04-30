@@ -85,7 +85,7 @@ class Stage(Base):
                         " JOIN stage"
                         " ON stage.id = Todo.stage_id"
                         " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)"
-                        " GROUP BY stage.name")
+                        " GROUP BY stage.name, todo.text")
         else:
             stmt = text("SELECT stage.name,todo.text,min(todo.date_created) FROM todo"
                         " JOIN stage"
