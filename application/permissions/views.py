@@ -36,9 +36,9 @@ def permissions_create(project_id):
 @permission_required(admin = True)
 def permissions_delete(project_id, permission_id):
     p = Permission.query.get(permission_id)
-
-    if p is not None and p.project_id == project_id:
-        db.session().delete(stage)
+    
+    if p is not None and p.project_id == int(project_id):
+        db.session().delete(p)
         db.session().commit()
     
     return redirect(url_for("projects_update_form", project_id = project_id))
