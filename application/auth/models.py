@@ -2,6 +2,7 @@ from application import db
 from application.models import Base
 
 from sqlalchemy.sql import text
+from sqlalchemy import not_
 
 class User(Base):
 
@@ -43,6 +44,10 @@ class User(Base):
             if permission.project_id == project_id:
                 return True
         return False
+
+    @classmethod
+    def get_users_not_in_project(self, project_id):
+        return User.query.filter(not_(User.permissions.any(project_id = project_id)))
 
     @classmethod
     def username_exists(self, name):

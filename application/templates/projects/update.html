@@ -65,4 +65,47 @@
       </tr>
     </table>
   </form>
+</p>
+<h2>Users</h2>
+<p>
+  <form method="POST" action="">
+    <table>
+      <tr>
+	<td>
+	  {{ add_user_to_project_form.username.label }}
+	</td>
+	<td>
+	  {{ add_user_to_project_form.username }}
+	</td>
+	<td>
+	  <ul>
+	    {% for error in add_user_to_project_form.username.errors %}
+	    <li>{{ error }}</li>
+	    {% endfor %}
+	  </ul>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  {{ add_user_to_project_form.admin.label }}
+	</td>
+	<td>
+	  {{ add_user_to_project_form.admin }}
+	</td>
+	<td>
+	  <ul>
+	    {% for error in add_user_to_project_form.admin.errors %}
+	    <li>{{ error }}</li>
+	    {% endfor %}
+	  </ul>
+	</td>
+      </tr>
+      <tr>
+	<td colspan="3">
+	  <input type="submit" value="Add user to project"/>
+	</td>
+      </tr>
+    </table>
+  </form>
+</p>
 {% endblock %}

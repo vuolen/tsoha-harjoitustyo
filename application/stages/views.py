@@ -19,7 +19,8 @@ def stages_create(project_id):
     if not form.validate():
         return render_template("projects/update.html", project = p,
                                stage_form = form,
-                               project_form = UpdateProjectForm())
+                               project_form = UpdateProjectForm(),
+                               add_user_to_project_form = AddUserToProjectForm(project_id))
     
     s = Stage()
     s.project_id = project_id
