@@ -20,9 +20,13 @@ This project requires Python
 6. Run the project with `python run.py`
 
 ### Usage
+These simple steps showcase all the features.
+
 1. Register an account or log in
-2. Create a new project if you haven't already
-3. Go to List projects -> Edit, and add stages
+2. Create a new project
+3. Go to List projects -> Edit, to enter the admin panel.
+4. In this panel, you can change your projects name, add stages to your project, and add other users to your project (you can also grant them admin priviledges).
+5. !WARNING! IF YOU ADD ANOTHER USER AS AN ADMIN, THEY HAVE THE ABILITY TO REMOVE YOU FROM THE PROJECT
 4. Go to List projects -> Your project name, and add todos to the first stage
 5. When a todo is ready, advance it to the next stage
 
@@ -47,13 +51,18 @@ CREATE TABLE account (
 	username VARCHAR(144) NOT NULL, 
 	fullname VARCHAR(144) NOT NULL, 
 	password VARCHAR(144) NOT NULL, 
-	PRIMARY KEY (id)
+	PRIMARY KEY (id), 
+	UNIQUE (username)
 );
 CREATE TABLE permission (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
 	project_id INTEGER NOT NULL, 
 	user_id INTEGER NOT NULL, 
 	admin BOOLEAN NOT NULL, 
-	PRIMARY KEY (project_id, user_id, admin), 
+	PRIMARY KEY (id), 
+	CONSTRAINT project_user_uc UNIQUE (project_id, user_id), 
 	FOREIGN KEY(project_id) REFERENCES project (id), 
 	FOREIGN KEY(user_id) REFERENCES account (id), 
 	CHECK (admin IN (0, 1))
