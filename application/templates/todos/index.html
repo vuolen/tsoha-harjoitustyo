@@ -1,59 +1,59 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <h1>{{ project.name }} todos</h1>
-  <p>
-    {% for stage in project.stages %}
-    <div>
-	{{ stage.name }}
-        <ul>
-	  {% for todo in stage.todos %}
-          <li>
-	    {{ todo.text }}
-	    <a href="{{ url_for('todos_advance', project_id=project.id, todo_id = todo.id) }}">Advance</a>
-	    <a href="{{ url_for('todos_delete', project_id=project.id, todo_id = todo.id) }}">Delete</a>
-	  </li>
-	  {% endfor %}
-        </ul>
-    </div>
-    {% endfor %}
-  </p>
-  <p>
+<h1>{{ project.name }} todos</h1>
+<p>
+  {% for stage in project.stages %}
+  <div>
+    {{ stage.name }}
+    <ul>
+      {% for todo in stage.todos %}
+      <li>
+        {{ todo.text }}
+        <a href="{{ url_for('todos_advance', project_id=project.id, todo_id = todo.id) }}">Advance</a>
+        <a href="{{ url_for('todos_delete', project_id=project.id, todo_id = todo.id) }}">Delete</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</p>
+<p>
   {% if project.stages|length > 0 %}
   <form method="POST" action="{{ url_for('todos_create', project_id=project.id) }}">
     <table>
       <tr>
-	<td>
-	  {{ form.text }}
-	</td>
-	<td>
-	  <ul>
-	    {% for error in form.text.errors %}
-	    <li>{{ error }}</li>
-	    {% endfor %}
-	  </ul>
-	</td>
+        <td>
+          {{ form.text }}
+        </td>
+        <td>
+          <ul>
+            {% for error in form.text.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
       </tr>
       <tr>
-	<td colspan="3">
-	  <input type="submit" value="Add todo"/>
-	</td>
+        <td colspan="3">
+          <input type="submit" value="Add todo" />
+        </td>
       </tr>
     </table>
   </form>
   {% else %}
   {% if not current_user.has_permission_to_project(project.id, True) %}
-  	Your project admin has to create at least one stage before you can add todos.
+  Your project admin has to create at least one stage before you can add todos.
   {% else %}
-	Your project requires at least one stage before people can add todos.
-	Add stages <a href="{{ url_for('projects_update_form', project_id = project.id) }}">here</a>
+  Your project requires at least one stage before people can add todos.
+  Add stages <a href="{{ url_for('projects_update_form', project_id = project.id) }}">here</a>
   {% endif %}
   {% endif %}
-  </p>
-  {% if most_populated_stage is not none %}
-  <p>
-    <h3>What to work on?</h3>
-    The stage <b>{{ most_populated_stage }}</b> has the most todos. You should start there.
-  </p>
-  {% endif %}
+</p>
+{% if most_populated_stage is not none %}
+<p>
+  <h3>What to work on?</h3>
+  The stage <b>{{ most_populated_stage }}</b> has the most todos. You should start there.
+</p>
+{% endif %}
 {% endblock %}

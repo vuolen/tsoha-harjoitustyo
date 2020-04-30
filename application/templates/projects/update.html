@@ -4,139 +4,139 @@
 
 <h1>{{ project.name }}</h1>
 <p>
-  <form method="POST" action="{{ url_for('projects_update', project_id=project.id) }}">
-    <table>
-      <tr>
-	<td>
-	  {{ project_form.name }}
-	</td>
-	<td>
-	  <ul>
-	    {% for error in project_form.name.errors %}
-	    <li>{{ error }}</li>
-	    {% endfor %}
-	  </ul>
-	</td>
-      </tr>
-      <tr>
-	<td colspan="3">
-	  <input type="submit" value="Update name"/>
-	</td>
-      </tr>
-    </table>
-  </form>
+	<form method="POST" action="{{ url_for('projects_update', project_id=project.id) }}">
+		<table>
+			<tr>
+				<td>
+					{{ project_form.name }}
+				</td>
+				<td>
+					<ul>
+						{% for error in project_form.name.errors %}
+						<li>{{ error }}</li>
+						{% endfor %}
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input type="submit" value="Update name" />
+				</td>
+			</tr>
+		</table>
+	</form>
 </p>
 <h2>Stages</h2>
 <p>
-  <table>
-    {% for stage in project.stages %}
-    <tr>
-      <td>
-	{{ stage.name }}
-      </td>
-      <td>
-	<a href="{{ url_for('stages_delete', project_id=project.id, index = stage.index) }}">
-	  Delete
-	</a>
-      </td>
-      <td>
-	{% if not loop.first %}
-	<a href="{{ url_for('stages_up', project_id=project.id, index = stage.index) }}">
-	  Up
-	</a>
-	{% endif %}
-	{% if not loop.last %}
-	<a href="{{ url_for('stages_down', project_id=project.id, index = stage.index) }}">
-	  Down
-	</a>
-	{% endif %}
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
+	<table>
+		{% for stage in project.stages %}
+		<tr>
+			<td>
+				{{ stage.name }}
+			</td>
+			<td>
+				<a href="{{ url_for('stages_delete', project_id=project.id, index = stage.index) }}">
+					Delete
+				</a>
+			</td>
+			<td>
+				{% if not loop.first %}
+				<a href="{{ url_for('stages_up', project_id=project.id, index = stage.index) }}">
+					Up
+				</a>
+				{% endif %}
+				{% if not loop.last %}
+				<a href="{{ url_for('stages_down', project_id=project.id, index = stage.index) }}">
+					Down
+				</a>
+				{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
 </p>
 <p>
-  <form method="POST" action="{{ url_for('stages_create', project_id=project.id) }}">
-    <table>
-      <tr>
-	<td>
-	  {{ stage_form.name }}
-	</td>
-	<td>
-	  <ul>
-	    {% for error in stage_form.name.errors %}
-	    <li>{{ error }}</li>
-	    {% endfor %}
-	  </ul>
-	</td>
-      </tr>
-      <tr>
-	<td colspan="3">
-	  <input type="submit" value="Add stage"/>
-	</td>
-      </tr>
-    </table>
-  </form>
+	<form method="POST" action="{{ url_for('stages_create', project_id=project.id) }}">
+		<table>
+			<tr>
+				<td>
+					{{ stage_form.name }}
+				</td>
+				<td>
+					<ul>
+						{% for error in stage_form.name.errors %}
+						<li>{{ error }}</li>
+						{% endfor %}
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input type="submit" value="Add stage" />
+				</td>
+			</tr>
+		</table>
+	</form>
 </p>
 <h2>Users</h2>
 <p>
-  <table>
-    {% for permission in project.permissions if not permission.user.id == current_user.id %}
-    <tr>
-      <td>
-	{{ permission.user.username }}
-      </td>
-      <td>
-	{{ "Admin" if permission.admin else "" }}
-      </td>
-      <td>
-	<a href="{{ url_for('permissions_delete', project_id=project.id, permission_id=permission.id) }}">
-	  Delete
-	</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
+	<table>
+		{% for permission in project.permissions if not permission.user.id == current_user.id %}
+		<tr>
+			<td>
+				{{ permission.user.username }}
+			</td>
+			<td>
+				{{ "Admin" if permission.admin else "" }}
+			</td>
+			<td>
+				<a href="{{ url_for('permissions_delete', project_id=project.id, permission_id=permission.id) }}">
+					Delete
+				</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
 </p>
 <p>
-  <form method="POST" action="{{ url_for('permissions_create', project_id=project.id) }}">
-    <table>
-      <tr>
-	<td>
-	  {{ add_user_to_project_form.username.label }}
-	</td>
-	<td>
-	  {{ add_user_to_project_form.username }}
-	</td>
-	<td>
-	  <ul>
-	    {% for error in add_user_to_project_form.username.errors %}
-	    <li>{{ error }}</li>
-	    {% endfor %}
-	  </ul>
-	</td>
-      </tr>
-      <tr>
-	<td>
-	  {{ add_user_to_project_form.admin.label }}
-	</td>
-	<td>
-	  {{ add_user_to_project_form.admin }}
-	</td>
-	<td>
-	  <ul>
-	    {% for error in add_user_to_project_form.admin.errors %}
-	    <li>{{ error }}</li>
-	    {% endfor %}
-	  </ul>
-	</td>
-      </tr>
-      <tr>
-	<td colspan="3">
-	  <input type="submit" value="Add user to project"/>
-	</td>
-      </tr>
-    </table>
-  </form>
+	<form method="POST" action="{{ url_for('permissions_create', project_id=project.id) }}">
+		<table>
+			<tr>
+				<td>
+					{{ add_user_to_project_form.username.label }}
+				</td>
+				<td>
+					{{ add_user_to_project_form.username }}
+				</td>
+				<td>
+					<ul>
+						{% for error in add_user_to_project_form.username.errors %}
+						<li>{{ error }}</li>
+						{% endfor %}
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					{{ add_user_to_project_form.admin.label }}
+				</td>
+				<td>
+					{{ add_user_to_project_form.admin }}
+				</td>
+				<td>
+					<ul>
+						{% for error in add_user_to_project_form.admin.errors %}
+						<li>{{ error }}</li>
+						{% endfor %}
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input type="submit" value="Add user to project" />
+				</td>
+			</tr>
+		</table>
+	</form>
 </p>
 {% endblock %}

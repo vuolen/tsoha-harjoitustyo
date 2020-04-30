@@ -8,15 +8,15 @@ Are you sure you want to
 <b>permanently delete</b>
 your project {{ project.name }}?
 <form method="POST" action="{{ url_for('projects_delete', project_id = project.id) }}">
-	<input type="submit" value="Yes, I'm sure"/>
+	<input type="submit" value="Yes, I'm sure" />
 </form>
 <a href="{{ url_for('projects_index') }}">No, go back</a>
 
 {% else %}
 
 Cannot delete this project. You either lack permission or the project does not exist.
-Click 
-<a href="{{ url_for('projects_index') }}">here</a> 
+Click
+<a href="{{ url_for('projects_index') }}">here</a>
 to return.
 
 {% endif %}

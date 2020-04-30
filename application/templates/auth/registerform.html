@@ -6,52 +6,52 @@
   <table>
     <tr>
       <td>
-	{{ form.username.label }}
+        {{ form.username.label }}
       </td>
       <td>
-	{{ form.username }}
+        {{ form.username }}
       </td>
       <td>
-	  <ul>
-	    {% for error in form.username.errors %}
-	    <li>{{ error }}</li>
-	    {% endfor %}
-	  </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-	{{ form.fullname.label }}
-      </td>
-      <td>
-	{{ form.fullname }}
-      </td>
-      <td>
-	  <ul>
-	    {% for error in form.fullname.errors %}
-	    <li>{{ error }}</li>
-	    {% endfor %}
-	  </ul>
+        <ul>
+          {% for error in form.username.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
       </td>
     </tr>
     <tr>
       <td>
-	{{ form.password.label }}
+        {{ form.fullname.label }}
       </td>
       <td>
-	{{ form.password }}
+        {{ form.fullname }}
       </td>
       <td>
-	  <ul>
-	    {% for error in form.password.errors %}
-	    <li>{{ error }}</li>
-	    {% endfor %}
-	  </ul>
+        <ul>
+          {% for error in form.fullname.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.password.label }}
+      </td>
+      <td>
+        {{ form.password }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.password.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
       </td>
     </tr>
     <tr>
       <td colspan="3">
-	<input type="submit" value="Register"/>
+        <input type="submit" value="Register" />
       </td>
     </tr>
 </form>
