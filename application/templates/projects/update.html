@@ -42,7 +42,7 @@
     </tr>
     {% endfor %}
   </table>
-  </p>
+</p>
 <p>
   <form method="POST" action="{{ url_for('stages_create', project_id=project.id) }}">
     <table>
@@ -67,6 +67,22 @@
   </form>
 </p>
 <h2>Users</h2>
+<p>
+  <table>
+    {% for permission in project.permissions if not permission.user.id == current_user.id %}
+    <tr>
+      <td>
+	{{ permission.user.username }}
+      </td>
+      <td>
+	<a href="{{ url_for('permissions_delete', project_id=project.id, permission_id=permission.id) }}">
+	  Delete
+	</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</p>
 <p>
   <form method="POST" action="{{ url_for('permissions_create', project_id=project.id) }}">
     <table>

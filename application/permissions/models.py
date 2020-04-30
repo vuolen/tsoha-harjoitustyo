@@ -1,11 +1,17 @@
-from application import db
+from sqlalchemy import UniqueConstraint
 
-class Permission(db.Model):
+from application import db
+from application.models import Base
+
+class Permission(Base):
     project_id = db.Column(db.Integer, db.ForeignKey("project.id"),
-                           nullable=False, primary_key=True)
+                           nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("account.id"),
-                        nullable=False, primary_key=True)
-    admin = db.Column(db.Boolean, primary_key=True, nullable=False)
+                        nullable=False)
+    admin = db.Column(db.Boolean, nullable=False)
+
+    __table_args__ = (UniqueConstraint("project_id", "user_id", name="project_user_uc"),)
+
 
     def __init__(self, project_id, user_id, admin):
         self.project_id = project_id
