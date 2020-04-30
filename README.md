@@ -10,6 +10,7 @@ A virtual Kanban board.
 This project has a demo [here](https://tsoha-kanban.herokuapp.com/). Please do not use the demo for real projects. Install and run the project on your own machine instead.
 
 ### Installation
+#### Local
 This project requires Python
 
 1. Copy the repository to your local machine
@@ -18,6 +19,16 @@ This project requires Python
 4. Activate your virtual environment with `source venv/bin/activate`
 5. Install the dependencies with `pip install -r requirements.txt`
 6. Run the project with `python run.py`
+
+#### Heroku
+1. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) and [git](https://git-scm.com/), if you haven't already.
+2. Download the project source code
+3. Go to the project root folder using your terminal
+4. Create your heroku project with `heroku create <project-name>`
+5. Initialize git with `git init`
+6. Add a git remote with `git remote add heroku https://git.heroku.com/<project-name>.git`
+7. Push your project to heroku with `git add .`, `git commit -m""` and `git push heroku master`
+8. Your project is now available at `<your-project>.herokuapp.com`
 
 ### Usage
 These simple steps showcase all the features.
