@@ -75,6 +75,9 @@
 	{{ permission.user.username }}
       </td>
       <td>
+	{{ "Admin" if permission.admin else "" }}
+      </td>
+      <td>
 	<a href="{{ url_for('permissions_delete', project_id=project.id, permission_id=permission.id) }}">
 	  Delete
 	</a>
