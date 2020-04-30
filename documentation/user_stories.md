@@ -4,8 +4,8 @@
   - `DELETE FROM project WHERE project.id = project_id`
 - As a project manager, I can add other users to my project. &check;
   - `INSERT INTO permission (project_id, user_id, admin) VALUES (project_id, user_id, admin)`
-- As a project manager, I can remove other users from my project.
-
+- As a project manager, I can remove other users from my project. &check;
+  - `DELETE FROM permission WHERE permission.id = ?`
 - As a project manager, I can update my project's name. &check;
   - `UPDATE project SET date_modified=CURRENT_TIMESTAMP, name=new_name WHERE project.id = project_id`
 - As a project manager, I can create a stage for my project's todos. &check;
