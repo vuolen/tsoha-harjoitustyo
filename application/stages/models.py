@@ -66,6 +66,7 @@ class Stage(Base):
         stmt = text("SELECT Stage.name,COUNT(*) FROM Stage"
                     " JOIN Todo"
                     " ON Stage.id = Todo.stage_id"
+                    " WHERE Stage.\"index\" < (SELECT MAX(s2.\"index\") FROM stage as s2)"
                     " GROUP BY Stage.id"
                     " ORDER BY COUNT(*) DESC")
 
