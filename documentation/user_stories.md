@@ -2,7 +2,8 @@
   - `INSERT INTO project (date_created, date_modified, name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, project_name)`
 - As a project manager, I can delete my project board. &check;
   - `DELETE FROM project WHERE project.id = project_id`
-- As a project manager, I can add other users to my project.
+- As a project manager, I can add other users to my project. &check;
+  - `INSERT INTO permission (project_id, user_id, admin) VALUES (project_id, user_id, admin)`
 - As a project manager, I can remove other users from my project.
 
 - As a project manager, I can update my project's name. &check;

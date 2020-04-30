@@ -41,7 +41,7 @@ from application import views
 
 from application.projects import models, views
 
-from application.permissions import models
+from application.permissions import models, views
 
 from application.auth import models, views
 

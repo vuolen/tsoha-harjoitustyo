@@ -3,7 +3,7 @@ from wtforms import SelectField, BooleanField, validators
 from application.auth.models import User
 
 class AddUserToProjectForm(FlaskForm):
-    username = SelectField("Username", choices = [("asd","asdasd"), ("asd1","asd")])
+    username = SelectField("Username", coerce=int)
     admin = BooleanField("Admin")
     
     class Meta:
@@ -11,7 +11,7 @@ class AddUserToProjectForm(FlaskForm):
 
     def __init__(self, *args, **kw):
         kw["prefix"] = "add_user_to_project"
-        super().__init__(*args, **kw)
+        super().__init__(*args[1:], **kw)
 
         project_id = args[0]
         users = User.get_users_not_in_project(project_id)

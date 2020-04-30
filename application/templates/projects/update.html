@@ -68,7 +68,7 @@
 </p>
 <h2>Users</h2>
 <p>
-  <form method="POST" action="">
+  <form method="POST" action="{{ url_for('permissions_create', project_id=project.id) }}">
     <table>
       <tr>
 	<td>
