@@ -4,13 +4,16 @@
 <h1>{{ project.name }} todos</h1>
 <p>
   {% for stage in project.stages %}
+  {% set outer_loop = loop %}
   <div>
     {{ stage.name }}
     <ul>
       {% for todo in stage.todos %}
       <li>
         {{ todo.text }}
+	{% if not outer_loop.last %}
         <a href="{{ url_for('todos_advance', project_id=project.id, todo_id = todo.id) }}">Advance</a>
+	{% endif %}
         <a href="{{ url_for('todos_delete', project_id=project.id, todo_id = todo.id) }}">Delete</a>
       </li>
       {% endfor %}
