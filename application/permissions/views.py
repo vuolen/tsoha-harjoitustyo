@@ -23,8 +23,6 @@ def permissions_create(project_id):
                                project_form = UpdateProjectForm(),
                                stage_form = CreateStageForm())
 
-    print(form.username.data)
-    print(form.admin.data)
     perm = Permission(project_id, form.username.data, form.admin.data)
     db.session().add(perm)
     db.session().commit()
