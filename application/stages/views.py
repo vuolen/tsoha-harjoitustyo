@@ -6,6 +6,7 @@ from application.projects.models import Project
 from application.stages.models import Stage
 from application.projects.forms import UpdateProjectForm
 from application.stages.forms import CreateStageForm
+from application.permissions.forms import AddUserToProjectForm
 
 
 @app.route("/projects/<project_id>/stages", methods=["POST"])
