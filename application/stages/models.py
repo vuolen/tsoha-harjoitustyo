@@ -76,3 +76,17 @@ class Stage(Base):
             return None
 
         return most_populated_stage[0]
+
+    @classmethod
+    def get_oldest_todo(self, project_id):
+        stmt = text("SELECT stage.name,todo.text,min(todo.date_created) FROM todo"
+                    " JOIN stage"
+                    " ON stage.id = Todo.stage_id"
+                    " WHERE stage.\"index\" < (SELECT MAX(s2.\"index\") FROM stage as s2)")
+
+        res = db.engine.execute(stmt)
+        oldest_todo = res.first()
+        if oldest_todo is None:
+            return None
+
+        return oldest_todo[0:1]

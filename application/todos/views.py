@@ -8,18 +8,19 @@ from application.stages.models import Stage
 from application.todos.forms import CreateTodoForm
 
 @app.route("/projects/<project_id>/todos", methods=["GET"])
-@permission_required()
 @login_required
+@permission_required()
 def todos_index(project_id):
     p = Project.query.get(project_id)
     return render_template("todos/index.html", project=p,
                            form = CreateTodoForm(),
-                           most_populated_stage = Stage.get_most_populated_stage(project_id))
+                           most_populated_stage = Stage.get_most_populated_stage(project_id),
+                           oldest_todo = Stage.get_oldest_todo(project_id))
 
 
 @app.route("/projects/<project_id>/todos", methods=["POST"])
-@permission_required()
 @login_required
+@permission_required()
 def todos_create(project_id):
     form = CreateTodoForm(request.form)
 
@@ -35,8 +36,8 @@ def todos_create(project_id):
     return redirect(url_for("todos_index", project_id = project_id))
 
 @app.route("/projects/<project_id>/todos/<todo_id>/advance", methods=["GET"])
-@permission_required()
 @login_required
+@permission_required()
 def todos_advance(project_id, todo_id):
     t = Todo.query.get(todo_id)
     next_stage_id = Stage.get_next_stage_id(project_id, t.stage_id)
@@ -47,8 +48,8 @@ def todos_advance(project_id, todo_id):
     return redirect(url_for("todos_index", project_id = project_id))
 
 @app.route("/projects/<project_id>/todos/<todo_id>/delete", methods=["GET"])
-@permission_required()
 @login_required
+@permission_required()
 def todos_delete(project_id, todo_id):
     t = Todo.query.get(todo_id)
     if t.stage.project_id == int(project_id):
