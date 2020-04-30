@@ -42,7 +42,12 @@
     </table>
   </form>
   {% else %}
-  The project requires at least one stage before you can add todos.
+  {% if not current_user.has_permission_to_project(project.id, True) %}
+  	Your project admin has to create at least one stage before you can add todos.
+  {% else %}
+	Your project requires at least one stage before people can add todos.
+	Add stages <a href="{{ url_for('projects_update_form', project_id = project.id) }}">here</a>
+  {% endif %}
   {% endif %}
   </p>
   {% if most_populated_stage is not none %}

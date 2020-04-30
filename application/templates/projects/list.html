@@ -10,12 +10,14 @@
       <td>
 	<a href="{{ url_for('todos_index', project_id = project.id) }}">{{ project.name }}</a>
       </td>
+      {% if current_user.has_permission_to_project(project.id, True) %}
       <td>
 	<a href="{{ url_for('projects_update_form', project_id = project.id) }}">Edit</a>
       </td>
       <td>
 	<a href="{{ url_for('projects_delete_form', project_id = project.id) }}">Delete</a>
       </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </table>
