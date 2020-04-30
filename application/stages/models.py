@@ -68,10 +68,11 @@ class Stage(Base):
                     " JOIN Todo"
                     " ON Stage.id = Todo.stage_id"
                     " WHERE Stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)"
+                    " AND Stage.project_id = :projectid"
                     " GROUP BY Stage.id"
                     " ORDER BY COUNT(*) DESC")
 
-        res = db.engine.execute(stmt)
+        res = db.engine.execute(stmt, projectid = project_id)
         most_populated_stage = res.first()
         if most_populated_stage is None:
             return None
@@ -85,14 +86,16 @@ class Stage(Base):
                         " JOIN stage"
                         " ON stage.id = Todo.stage_id"
                         " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)"
+                        " AND stage.project_id = :projectid"
                         " GROUP BY stage.name, todo.text")
         else:
             stmt = text("SELECT stage.name,todo.text,min(todo.date_created) FROM todo"
                         " JOIN stage"
                         " ON stage.id = Todo.stage_id"
-                        " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)")
+                        " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)"
+                        " AND stage.project_id = :projectid")
 
-        res = db.engine.execute(stmt)
+        res = db.engine.execute(stmt, projectid = project_id)
         oldest_todo = res.first()
         if oldest_todo is None:
             return None
