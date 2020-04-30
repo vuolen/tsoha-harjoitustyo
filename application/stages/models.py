@@ -5,12 +5,12 @@ from application.models import Base
 
 class Stage(Base):
     project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
-    index = db.Column(db.Integer, nullable=False)
+    index = db.Column('index_', db.Integer, nullable=False)
     name = db.Column(db.String, nullable=False)
 
     todos = db.relationship("Todo", backref="stage", lazy=True)
 
-    __table_args__ = (UniqueConstraint("project_id", "index", name="project_index_uc"),)
+    __table_args__ = (UniqueConstraint("project_id", "index_", name="project_index_uc"),)
 
     @classmethod
     def get_first_stage(self, project_id):
@@ -66,7 +66,7 @@ class Stage(Base):
         stmt = text("SELECT Stage.name,COUNT(*) FROM Stage"
                     " JOIN Todo"
                     " ON Stage.id = Todo.stage_id"
-                    " WHERE Stage.\"index\" < (SELECT MAX(s2.\"index\") FROM stage as s2)"
+                    " WHERE Stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)"
                     " GROUP BY Stage.id"
                     " ORDER BY COUNT(*) DESC")
 
@@ -82,7 +82,7 @@ class Stage(Base):
         stmt = text("SELECT stage.name,todo.text,min(todo.date_created) FROM todo"
                     " JOIN stage"
                     " ON stage.id = Todo.stage_id"
-                    " WHERE stage.\"index\" < (SELECT MAX(s2.\"index\") FROM stage as s2)")
+                    " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)")
 
         res = db.engine.execute(stmt)
         oldest_todo = res.first()
