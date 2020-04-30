@@ -53,7 +53,10 @@
 {% if most_populated_stage is not none %}
 <p>
   <h3>What to work on?</h3>
-  The stage <b>{{ most_populated_stage }}</b> has the most todos. You should start there.
+  <ul>
+    <li>Stage <b>{{ most_populated_stage }}</b> has the most todos.</li>
+    <li>Stage <b>{{ oldest_todo[0] }}</b> has the oldest todo: {{ oldest_todo[1] }}</li>
+  </ul>
 </p>
 {% endif %}
 {% endblock %}

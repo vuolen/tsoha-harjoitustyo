@@ -89,4 +89,4 @@ class Stage(Base):
         if oldest_todo is None:
             return None
 
-        return oldest_todo[0:1]
+        return oldest_todo[0:2]
