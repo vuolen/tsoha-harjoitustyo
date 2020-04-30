@@ -5,6 +5,7 @@ class Project(Base):
     name = db.Column(db.String(144), nullable=False)
 
     stages = db.relationship("Stage", backref="project",
+                             order_by="Stage.index",
                              cascade="all, delete-orphan", lazy=True)
     permissions = db.relationship("Permission", backref="project",
                                   cascade="all, delete-orphan", lazy=True)
