@@ -1,4 +1,5 @@
 from sqlalchemy import text, UniqueConstraint
+import os
 
 from application import db
 from application.models import Base
@@ -79,10 +80,17 @@ class Stage(Base):
 
     @classmethod
     def get_oldest_todo(self, project_id):
-        stmt = text("SELECT stage.name,todo.text,min(todo.date_created) FROM todo"
-                    " JOIN stage"
-                    " ON stage.id = Todo.stage_id"
-                    " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)")
+        if os.environ.get("HEROKU"):
+            stmt = text("SELECT stage.name,todo.text,min(todo.date_created) FROM todo"
+                        " JOIN stage"
+                        " ON stage.id = Todo.stage_id"
+                        " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)"
+                        " GROUP BY stage.name")
+        else:
+            stmt = text("SELECT stage.name,todo.text,min(todo.date_created) FROM todo"
+                        " JOIN stage"
+                        " ON stage.id = Todo.stage_id"
+                        " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)")
 
         res = db.engine.execute(stmt)
         oldest_todo = res.first()
