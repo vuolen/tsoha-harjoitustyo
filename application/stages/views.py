@@ -42,3 +42,26 @@ def stages_delete(project_id, index):
         db.session().commit()
     
     return redirect(url_for("projects_update_form", project_id = project_id))
+
+
+@app.route("/projects/<project_id>/stages/<index>/up", methods=["GET"])
+@login_required
+@permission_required(admin = True)
+def stages_up(project_id, index):
+    stage = Stage.query.filter_by(project_id = project_id, index = index).first()
+    previous_stage_id = Stage.get_previous_stage_id(project_id, stage.id)
+    if previous_stage_id is not None:
+        print(Stage.swap_stage_indices(int(project_id), stage.id, previous_stage_id))
+    
+    return redirect(url_for("projects_update_form", project_id = project_id))
+
+@app.route("/projects/<project_id>/stages/<index>/down", methods=["GET"])
+@login_required
+@permission_required(admin = True)
+def stages_down(project_id, index):
+    stage = Stage.query.filter_by(project_id = project_id, index = index).first()
+    next_stage_id = Stage.get_next_stage_id(project_id, stage.id)
+    if next_stage_id is not None:
+        print(Stage.swap_stage_indices(int(project_id), stage.id, next_stage_id))
+    
+    return redirect(url_for("projects_update_form", project_id = project_id))

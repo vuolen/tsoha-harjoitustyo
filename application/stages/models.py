@@ -28,10 +28,38 @@ class Stage(Base):
     @classmethod
     def get_next_stage_id(self, project_id, stage_id):
         s = Stage.query.get(stage_id)
-        next_stage = Stage.query.filter_by(project_id = project_id).filter(Stage.index > s.index).first()
+        next_stage = Stage.query.filter_by(project_id = project_id).filter(Stage.index > s.index).order_by(Stage.index).first()
         if next_stage is None:
             return None
         return next_stage.id
+
+    @classmethod
+    def get_previous_stage_id(self, project_id, stage_id):
+        s = Stage.query.get(stage_id)
+        previous_stage = Stage.query.filter_by(project_id = project_id).filter(Stage.index < s.index).order_by(Stage.index.desc()).first()
+        if previous_stage is None:
+            return None
+        return previous_stage.id
+
+    @classmethod
+    def swap_stage_indices(self, project_id, stage1_id, stage2_id):
+        stage1 = Stage.query.get(stage1_id)
+        stage2 = Stage.query.get(stage2_id)
+        if stage1 is None or stage2 is None or stage1.project_id != project_id or stage2.project_id != project_id:
+            return None
+        # You cannot simply swap two unique values
+        tmp1 = stage1.index
+        tmp2 = stage2.index
+        
+        stage1.index = -1
+        stage2.index = -2
+        db.session.commit()
+
+        stage1.index = tmp2
+        stage2.index = tmp1
+        db.session.commit()
+        
+        return True
 
     @classmethod
     def get_most_populated_stage(self, project_id):

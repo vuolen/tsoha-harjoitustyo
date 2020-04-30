@@ -10,8 +10,9 @@
   - `UPDATE project SET date_modified=CURRENT_TIMESTAMP, name=new_name WHERE project.id = project_id`
 - As a project manager, I can create a stage for my project's todos. &check;
   - `INSERT INTO stage (date_created, date_modified, project_id, index, name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, project_id, new_stage_index, new_stage_name)`
-- As a project manager, I can rearrange my project's stages.
-
+- As a project manager, I can rearrange my project's stages. &check;
+  - `UPDATE stage SET index=stage2_index WHERE stage.id = stage1_id`
+  - `UPDATE stage SET index=stage1_index WHERE stage.id = stage2_id`
 - As a project manager, I can modify a stage in my project.
 
 - As a project manager, I can delete a stage in my project. &check;
