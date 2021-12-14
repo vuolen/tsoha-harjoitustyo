@@ -81,19 +81,12 @@ class Stage(Base):
 
     @classmethod
     def get_oldest_todo(self, project_id):
-        if os.environ.get("HEROKU"):
-            stmt = text("SELECT stage.name,todo.text,min(todo.date_created) FROM todo"
-                        " JOIN stage"
-                        " ON stage.id = Todo.stage_id"
-                        " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)"
-                        " AND stage.project_id = :projectid"
-                        " GROUP BY stage.name, todo.text")
-        else:
-            stmt = text("SELECT stage.name,todo.text,min(todo.date_created) FROM todo"
-                        " JOIN stage"
-                        " ON stage.id = Todo.stage_id"
-                        " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)"
-                        " AND stage.project_id = :projectid")
+        stmt = text("SELECT stage.name,todo.text FROM todo"
+                    " JOIN stage"
+                    " ON stage.id = Todo.stage_id"
+                    " WHERE stage.index_ < (SELECT MAX(s2.index_) FROM stage as s2)"
+                    " AND stage.project_id = :projectid"
+                    " ORDER BY todo.date_created")
 
         res = db.engine.execute(stmt, projectid = project_id)
         oldest_todo = res.first()
