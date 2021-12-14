@@ -7,7 +7,7 @@ A virtual Kanban board.
 
 ## Documentation
 
-This project has a demo [here](https://tsoha-kanban.herokuapp.com/). Please do not use the demo for real projects. Install and run the project on your own machine instead.
+This project has a demo [here](https://tsoha-kanban.herokuapp.com/). Please do not use the demo for real projects. Install and run the project on your own machine instead. There are 3 users already created: user1:user1pass, user2:user2pass and user3:user3pass
 
 ### Installation
 #### Local
