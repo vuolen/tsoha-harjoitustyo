@@ -3,7 +3,7 @@
 [![Heroku](https://heroku-badge.herokuapp.com/?app=tsoha-kanban)](https://tsoha-kanban.herokuapp.com/)
 
 ## Description
-A virtual Kanban board.
+A virtual Kanban board. Made for my university course (tsoha) in spring 2020.
 
 ## Documentation
 
